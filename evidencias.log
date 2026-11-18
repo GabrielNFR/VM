@@ -1,0 +1,87 @@
+Script started on 2026-11-17 19:18:17-03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="125" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
+[?2004lTue Nov 17 19:18:21 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
+[?2004l/home/skickle/OS/VM
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami][K
+[?2004lskickle
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
+[?2004lrm -f vm vm.o
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ .vm [K[K[K/vm addresses.txt fifo lryu[K[Ku
+[?2004lPrimeiro endereco lido: 16916
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ printf -- '-1\n1[K' > invalido.txt [K
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: endereço fora da faixa 0...65535
+Erro: a primeira linha do arquivo nao contem um endereco valido
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: endereço fora da faixa 0...65535
+Erro: a primeira linha do arquivo nao contem um endereco valido
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004lmake: Nothing to be done for 'all'.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make./vm invalido.txt fifo lru
+[?2004lErro: nenhum digito foi lido
+Erro: a primeira linha do arquivo nao contem um endereco valido
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: arquivo vazio ou não foi possivel ler a primeira linha
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ clear
+[?2004l[H[2J[3J[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [K]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
+[?2004lrm -f vm vm.o
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [K]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+exit
+Script started on 2026-11-17 22:04:05-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
+[?2004lTue Nov 17 22:04:12 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami
+[?2004lskickle
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
+[?2004l/home/skickle/OS/VM
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./[K[K[7m./vm addresses.txt fifo lru[27m./vm addresses.txt fifo lru
+[?2004lEndereços validados: 1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\nabc\n' > invalido.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\nabc\n' > invalido.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
+[?2004lErro: nenhum digito foi lido
+Erro: falha ao ler a linha 2 no arquivo invalido.txt
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: nenhum digito foi lido
+Erro: falha ao ler a linha 2 no arquivo invalido.txt
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: endereço fora da faixa 0...65535
+Erro: falha ao ler a linha 2 no arquivo invalido.txt
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro: nenhum digito foi lido
+Erro: falha ao ler a linha 1 no arquivo invalido.txt
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004lErro ao abrir o arquivo de entrada
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean &&make[K[K[K[K make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm invalido.txt fifo lru[1@addresses[C[C[C[C[C[C[C[C[C[C[C[C[Cpwd[Kwhoami[2Pdatemake clean && make[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7m./vm addresses.txt fifo lru[27m./vm addresses.txt fifo lru
+[?2004lEndereços validados: 1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mprintf '123\nabc\n' > invalido.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cprintf '123\nabc\n' > invalido.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
+[?2004lErro: linha 2 do arquivo 'invalido.txt': nenhum número foi encontrado.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\n70000\n' > invalido2.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\n70000\n' > invalido2.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm invalido2.txt fifo lru[27m ./vm invalido2.txt fifo lru
+[?2004lErro: linha 2 do arquivo 'invalido2.txt': endereço fora da faixa 0..65535.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m : > vazio.txt[27m : > vazio.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm vazio.txt fifo lru[27m ./vm vazio.txt fifo lru
+[?2004lErro: o arquivo 'vazio.txt' está vazio.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm nao_existe.txt fifo lru[27m./vm nao_existe.txt fifo lru
+[?2004lErro: não foi possível abrir 'nao_existe.txt': No such file or directory
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+exit
