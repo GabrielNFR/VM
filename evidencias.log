@@ -85,3 +85,61 @@ gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm
 [?2004lErro: não foi possível abrir 'nao_existe.txt': No such file or directory
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
 exit
+Script started on 2026-11-18 14:58:56-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
+[?2004lrm -f vm vm.o
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lryu[K[Ku
+[?2004lErro: o arquivo 'addresses.txt' está vazio.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt fifo lru
+[?2004lErro: o arquivo 'addresses.txt' está vazio.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lru[9Pmake clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm make clean && make./vm addresses.txt fifo lru
+[?2004lSegmentation fault (core dumped)
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lru[9Pmake clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt fifo lru
+[?2004lSegmentation fault (core dumped)
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make cçea[K[K[Klean 
+[?2004lrm -f vm vm.o
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean ./vm addresses.txt fifo lru
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco:12107
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make[K[K[K[Kdate
+[?2004lWed Nov 18 20:18:22 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit
+[?2004lexit
+
+Script done on 2026-11-18 20:18:32-03:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-11-18 20:18:35-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
+[?2004lWed Nov 18 20:18:36 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ dateexitmake clean && makedate[K./vm addresses.txt fifo lru
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+Endereco logico: 16916
+Endereco fisico: 20
+Valor: 0
+Segunda traducao: fisico = 20, valor = 0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ git add .
+[?2004l
