@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <errno.h>
+#include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +9,7 @@
 #define PAGE_SIZE 256
 #define NUM_PAGES 256
 #define NUM_FRAMES 128
+#define TLB_SIZE 16
 #define INVALID_FRAME (-1)
 
 typedef enum {
@@ -23,6 +25,18 @@ typedef enum {
     POLITICA_LRU
 } PoliticaPagina;
 
+typedef enum {
+    TLB_FIFO,
+    TLB_LRU
+} PoliticaTlb;
+
+typedef struct {
+    int pagina;
+    int frame;
+    int valido;
+    unsigned long ultimoUso;
+} EntradaTlb;
+
 typedef struct {
     unsigned char frames[NUM_FRAMES][PAGE_SIZE];
     int tabelaPaginas[NUM_PAGES];
@@ -35,6 +49,14 @@ typedef struct {
     int tamanhoFila;
 
     PoliticaPagina politicaPagina;
+    PoliticaTlb politicaTlb;
+    unsigned long ultimoUso[NUM_PAGES];
+    unsigned long relogio;
+
+    EntradaTlb tlb[TLB_SIZE];
+    int tlbHits;
+    int proximaEntradaTlb;
+    unsigned long relogioTlb;
 } Memoria;
 
 typedef struct {
@@ -43,6 +65,11 @@ typedef struct {
     size_t capacidade;
 } AddressList;
 
+static int escolheEntradaTlbLru(Memoria *memoria);
+static int insereTlb(Memoria *memoria, int pagina, int frame);
+static int buscaTlb(Memoria *memoria, int pagina);
+static int escolheVitimaLru(Memoria *memoria);
+static void registraUso(Memoria *memoria, int pagina);
 static int escolheVitimaPagina(Memoria *memoria);
 static void enfileiraFifo(Memoria *memoria, int pagina);
 static int desenfileiraFifo(Memoria *memoria);
@@ -51,7 +78,7 @@ static StatusEndereco validaEndereco(const char *s, int *saida);
 static void liberaLista(AddressList *lista);
 static int carregaEnderecos(const char *caminho, AddressList *lista);
 static int adicionarLista(AddressList *lista, int valor);
-static int inicializaMemoria(Memoria *memoria, PoliticaPagina politica);
+static int inicializaMemoria(Memoria *memoria, PoliticaPagina politicaPagina, PoliticaTlb politicaTlb);
 static void liberaMemoria(Memoria *memoria);
 static int carregaPagina(Memoria *memoria, int pagina, int frame);
 static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor);
@@ -79,6 +106,14 @@ int main(int argc, char **argv) {
         politicaPagina = POLITICA_LRU;
     }
 
+    PoliticaTlb politicaTlb;
+    if (strcmp(argv[3], "fifo") == 0) {
+        politicaTlb = TLB_FIFO;
+    }
+    else {
+        politicaTlb = TLB_LRU;
+    }
+    
     AddressList enderecos = {0};
     if (carregaEnderecos(argv[1], &enderecos) != 0) {
         liberaLista(&enderecos);
@@ -88,7 +123,7 @@ int main(int argc, char **argv) {
 
     Memoria memoria;
     
-    if (inicializaMemoria(&memoria, politicaPagina) != 0) {
+    if (inicializaMemoria(&memoria, politicaPagina, politicaTlb) != 0) {
         liberaLista(&enderecos);
         return 1;
     }
@@ -221,16 +256,29 @@ static void liberaLista(AddressList *lista) {
     lista->quantidade = 0;
 }
 
-static int inicializaMemoria(Memoria *memoria, PoliticaPagina politica) {
+static int inicializaMemoria(Memoria *memoria, PoliticaPagina politicaPagina, PoliticaTlb politicaTlb) {
     for (int i = 0; i < NUM_PAGES; i++) {
         memoria->tabelaPaginas[i] = INVALID_FRAME;
+        memoria->ultimoUso[i] = 0;
+    }
+
+    for (int i = 0; i < TLB_SIZE; i++) {
+        memoria->tlb[i].frame = INVALID_FRAME;
+        memoria->tlb[i].pagina = INVALID_FRAME;
+        memoria->tlb[i].valido = 0;
+        memoria->tlb[i].ultimoUso = 0;
     }
 
     memoria->proximoFrame = 0;
     memoria->inicioFila = 0;
     memoria->fimFila = 0;
     memoria->tamanhoFila = 0;
-    memoria->politicaPagina = politica;
+    memoria->relogio = 0;
+    memoria->relogioTlb = 0;
+    memoria->politicaPagina = politicaPagina;
+    memoria->politicaTlb = politicaTlb;
+    memoria->tlbHits = 0;
+    memoria->proximaEntradaTlb = 0;
 
     memoria->backingStore = fopen("BACKING_STORE.bin", "rb");
     if (memoria->backingStore == NULL) {
@@ -273,6 +321,26 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
         return 1;
     }
 
+    int slot = buscaTlb(memoria, pagina);
+    if (slot != -1) {
+        int frame = memoria->tlb[slot].frame;
+
+        memoria->tlbHits++;
+        registraUso(memoria, pagina);
+
+        if (memoria->politicaTlb == TLB_LRU) {
+            memoria->tlb[slot].ultimoUso = ++memoria->relogioTlb;
+        }
+
+        int fisico = frame * PAGE_SIZE + offset;
+        unsigned char bruto = memoria->frames[frame][offset];
+
+        *enderecoFisico = fisico;
+        *valor = (signed char)bruto;
+
+        return 0;
+    }
+    
     int frame = memoria->tabelaPaginas[pagina];
 
     if (frame == INVALID_FRAME) {
@@ -304,8 +372,6 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
         if (vitima != INVALID_FRAME) {
             memoria->tabelaPaginas[vitima] = INVALID_FRAME;
         }
-
-        memoria->tabelaPaginas[pagina] = frame;
         
         if (memoria->politicaPagina == POLITICA_FIFO) {
             enfileiraFifo(memoria, pagina);
@@ -314,6 +380,9 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
         memoria->tabelaPaginas[pagina] = frame;
     }
 
+    insereTlb(memoria, pagina, frame);
+    registraUso(memoria, pagina);
+    
     int fisico = frame * PAGE_SIZE + offset;
     unsigned char bruto = memoria->frames[frame][offset];
 
@@ -356,8 +425,76 @@ static int escolheVitimaPagina(Memoria *memoria) {
         case POLITICA_FIFO:
             return desenfileiraFifo(memoria);
         case POLITICA_LRU:
-            return INVALID_FRAME;
+            return escolheVitimaLru(memoria);
     }
 
     return INVALID_FRAME;
+}
+
+static void registraUso(Memoria *memoria, int pagina) {
+    if (memoria->politicaPagina == POLITICA_LRU) {
+        memoria->relogio++;
+        memoria->ultimoUso[pagina] = memoria->relogio;
+    }
+}
+
+static int escolheVitimaLru(Memoria *memoria) {
+    int vitima = INVALID_FRAME;
+    unsigned long menosRecente = ULONG_MAX;
+    
+    for (int pagina = 0; pagina < NUM_PAGES; pagina++) {
+        if (memoria->tabelaPaginas[pagina] == INVALID_FRAME) continue;
+        if (memoria->ultimoUso[pagina] < menosRecente) {
+            menosRecente = memoria->ultimoUso[pagina];
+            vitima = pagina;
+        }
+    }
+
+    return vitima;
+}
+
+static int buscaTlb(Memoria *memoria, int pagina) {
+    for (int i = 0; i < TLB_SIZE; i++) {
+        if (memoria->tlb[i].valido && memoria->tlb[i].pagina == pagina) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+static int insereTlb(Memoria *memoria, int pagina, int frame) {
+    int slot;
+    if (memoria->politicaTlb == TLB_FIFO) {
+        slot = memoria->proximaEntradaTlb;
+    }
+    else {
+        slot = escolheEntradaTlbLru(memoria);
+    }
+    
+    memoria->tlb[slot].pagina = pagina;
+    memoria->tlb[slot].frame = frame;
+    memoria->tlb[slot].valido = 1;
+    memoria->tlb[slot].ultimoUso = ++memoria->relogioTlb;
+
+    memoria->proximaEntradaTlb = (memoria->proximaEntradaTlb + 1) % TLB_SIZE;
+
+    return slot;
+}
+
+static int escolheEntradaTlbLru(Memoria *memoria) {
+    for (int i = 0; i < TLB_SIZE; i++) {
+        if (!memoria->tlb[i].valido) return i;
+    }
+
+    unsigned long menor = memoria->tlb[0].ultimoUso;
+    int idx = 0;
+    for (int i = 0; i < TLB_SIZE; i++) {
+        if (memoria->tlb[i].ultimoUso < menor) {
+            menor = memoria->tlb[i].ultimoUso;
+            idx = i;
+        }
+    }
+
+    return idx;
 }

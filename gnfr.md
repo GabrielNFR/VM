@@ -6,15 +6,15 @@ Um requisito por linha. Sem parágrafo, se precisar explicar algo, use a coluna 
 | Requisito do enunciado | Status | Como testar / evidência |
 |:-----------------------|:-------|:------------------------|
 | Programa em C, executável em Linux, Unix ou macOS, compilado com make e gerando vm | OK | make clean e make geraram vm em 2026-11-17 22:04:05 |
-| Três argumentos de linha de comando: arquivo, política de página e política de TLB | Parcial | A política de página é usada em 2026-11-18 22:44:07, mas a política de TLB ainda não é aplicada |
+| Três argumentos de linha de comando: arquivo, política de página e política de TLB | OK | 2026-11-19 19:39:07, políticas de página e TLB aplicadas na simulação |
 | Política de substituição de página FIFO | OK | 2026-11-18 22:44:07, execução completa com 1000 traduções e nenhuma ocorrência de memória cheia |
-| Política de substituição de página LRU | Não feito | 2026-11-18 22:44:07, interrupção controlada no endereço 48855 porque o LRU ainda não foi implementado |
-| Política de substituição de TLB FIFO | Não feito | Sem implementação |
-| Política de substituição de TLB LRU | Não feito | Sem implementação |
-| Memória física com 128 frames | OK | A struct Memoria define 128 frames e a execução completa com substituição ocorreu em 2026-11-18 22:44:07 |
-| Preencher os frames de 0 a 127 e substituir quando a memória encher | Parcial | O FIFO preenche e substitui frames, mas o LRU ainda não existe em 2026-11-18 22:44:07 |
-| Traduzir endereços lógicos em endereços físicos | OK | 2026-11-18 22:44:07, execução completa com 1000 traduções |
-| Ler páginas do BACKING_STORE.bin durante page faults | OK | 2026-11-18 22:44:07, execução completa com page faults e substituição |
+| Política de substituição de página LRU | OK | 2026-11-19 16:25:16, execução completa com 1000 traduções e 0 erros |
+| Política de substituição de TLB FIFO | OK | 2026-11-19 19:39:07, execução completa com 1000 traduções e 0 erros |
+| Política de substituição de TLB LRU | OK | 2026-11-19 19:39:07, execução completa com 1000 traduções e 0 erros |
+| Memória física com 128 frames | OK | A struct Memoria define 128 frames e a execução completa com substituição ocorreu em 2026-11-19 16:25:16 |
+| Preencher os frames de 0 a 127 e substituir quando a memória encher | OK | FIFO e LRU de página executaram a lista completa em 2026-11-19 16:25:16 |
+| Traduzir endereços lógicos em endereços físicos | OK | 2026-11-19 19:39:07, execução completa com 1000 traduções |
+| Ler páginas do BACKING_STORE.bin durante page faults | OK | 2026-11-19 19:39:07, execução completa com page faults e substituição |
 | Buscar a TLB com uma thread para cada entrada | Não feito | Sem implementação |
 | Gerar correct.txt no formato do exemplo | Não feito | Sem implementação |
 | Validar número e tipo de argumentos com erro coerente | Parcial | Implementado no código, mas o log não registra execução com argumento inválido |
@@ -28,16 +28,25 @@ Compilar:
 make clean
 make
 ```
-Executar:
+Executar com FIFO de página e FIFO de TLB:
 ```bash
 ./vm addresses.txt fifo fifo
 ```
+Executar com LRU de página e FIFO de TLB:
+```bash
+./vm addresses.txt lru fifo
+```
+Executar com LRU de página e LRU de TLB:
+```bash
+./vm addresses.txt lru lru
+```
+
 # 4. Arquitetura (resumida)
 Uma linha por arquivo, só o que é específico do seu projeto.
 
 **Arquivos e responsabilidades:**
 
-1. *vm.c* -> valida argumentos, carrega e armazena endereços, inicializa a memória, seleciona a política de página e traduz todos os endereços com page faults e substituição FIFO, ainda sem TLB e sem LRU
+1. *vm.c* -> valida argumentos, carrega e armazena endereços, inicializa a memória, aplica FIFO e LRU na página e na TLB com busca sequencial, ainda sem threads e sem saída final
 2. *Makefile* -> compila vm.c com gcc, -pthread, -Wall, -Wextra e -Werror
 3. *addresses.txt* -> 1000 endereços lógicos carregados e armazenados
 4. *BACKING_STORE.bin* -> lido nos page faults para carregar páginas nos frames
@@ -52,8 +61,8 @@ Uma linha por arquivo, só o que é específico do seu projeto.
 5. *Usar unsigned char nos frames e signed char no valor* -> ler bytes brutos do backing store e interpretar o valor final como assinado -> valores negativos do correct.txt podem ser representados
 6. *Separar PoliticaPagina e escolheVitimaPagina* -> manter a tradução independente da política -> o FIFO funciona e o LRU pode ser adicionado sem alterar o fluxo principal
 7. *Usar uma fila circular de páginas para FIFO* -> guardar a ordem de carregamento -> a vítima é a página carregada há mais tempo
-8. *Deixar o LRU como erro controlado nesta etapa* -> o algoritmo ainda não existe -> o programa não gera resultado incorreto de forma silenciosa
-9. *Manter saída de depuração por endereço* -> validar as 1000 traduções antes do formato final -> correct.txt ainda não é gerado
+8. *Usar a TLB como cache de página para frame* -> evitar consultar a tabela em traduções recentes -> TLB hit não acessa a tabela de páginas
+9. *Usar ponteiro circular no FIFO de TLB e recência no LRU de TLB* -> implementar as duas políticas sem misturar os critérios -> FIFO usa ordem de inserção e LRU usa último uso
 
 
 # 5. Estratégias e Diário de Desenvolvimento
@@ -66,6 +75,7 @@ Uma linha por abordagem diferente que você tentou. Se você não mudou de abord
 | S2 | Validação separada da mensagem | Duas mensagens para o mesmo erro na primeira versão | Separar responsabilidades e emitir uma única mensagem contextual |
 | S3 | Tradução incremental da memória | Implementar page fault, frame livre e leitura do backing store antes de TLB e substituição | Não houve troca |
 | S4 | Substituição FIFO antes do LRU | Implementar a política de substituição mais simples primeiro e isolar a escolha de vítima | Não houve troca |
+| S5 | TLB incremental | Implementar busca e inserção sequenciais, depois FIFO e LRU, antes de usar threads | Não houve troca |
 
 ## 5.2 Diário de Tentativas
 Uma linha por tentativa relevante, marcando a qual estratégia (S1/S2/S3) ela pertence, obviamente precisa ser em ordem cronológica. A coluna "Quando" precisa bater com a ordem cronológica do evidencias.log, é isso que comprova que o fluxo é real. "Hipótese/Causa" só é preenchida quando o resultado foi falha ou parcial.
@@ -83,7 +93,12 @@ Uma linha por tentativa relevante, marcando a qual estratégia (S1/S2/S3) ela pe
 | 10 | S3 | Executar FIFO completo e conferir ausência de memória cheia | OK | - | 2026-11-18 22:44:07 | 2026-11-18 22:44:07 |
 | 11 | S3 | Testar a seleção de política após a mudança no page fault | Falha | A verificação de vítima também rodava no caminho de frame livre e a página era enfileirada duas vezes | 2026-11-18 22:44:07 | 2026-11-18 22:44:07 |
 | 12 | S3 | Corrigir o tratamento da vítima e da fila FIFO | OK | - | 2026-11-18 22:44:07 | 2026-11-18 22:44:07 |
-| 13 | S4 | Validar a seleção de política e o erro controlado do LRU | Parcial | O LRU ainda não foi implementado e interrompe a execução quando a memória enche | 2026-11-18 22:44:07 | 2026-11-18 22:44:07 |
+| 13 | S4 | Validar a seleção de política e o erro controlado do LRU | Parcial | O LRU ainda não estava implementado e interrompia a execução quando a memória enchia | 2026-11-18 22:44:07 | 2026-11-18 22:44:07 |
+| 14 | S4 | Implementar a vítima LRU de página | Falha | A escolha comparava o frame em vez da recência e retornava o frame como se fosse a página | 2026-11-19 16:25:16 | 2026-11-19 16:25:16 |
+| 15 | S4 | Corrigir a vítima LRU e repetir a execução completa | OK | - | 2026-11-19 16:25:16 | 2026-11-19 16:25:16 |
+| 16 | S5 | Implementar TLB FIFO sequencial e o ramo de TLB hit | Falha | O ramo de hit não preenchia endereço físico e valor e a TLB ainda não era preenchida | 2026-11-19 16:25:16 | 2026-11-19 16:25:16 |
+| 17 | S5 | Corrigir o ramo de hit e validar TLB FIFO | OK | - | 2026-11-19 16:25:16 | 2026-11-19 16:25:16 |
+| 18 | S5 | Implementar e testar TLB LRU com recência | OK | - | 2026-11-19 19:39:07 | 2026-11-19 19:39:07 |
 
 Regra prática: se algo deu muito errado (bug que te travou por horas), a linha da tabela resume em 1 frase e aponta para o trecho do evidencias.log com o detalhe.
 

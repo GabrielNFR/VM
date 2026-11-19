@@ -362,3 +362,115 @@ Erro: falha de traducao na linha 171, no endereco: 48855
 exit
 
 Script done on 2026-11-18 22:44:07-03:00 [COMMAND_EXIT_CODE="1"]
+Script started on 2026-11-19 16:25:14-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
+[?2004l
+Thu Nov 19 16:25:16 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
+[?2004l
+/home/skickle/OS/VM
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami
+[?2004l
+skickle
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make &&[K[K[KC[K CLEA[K[K[K[Kclean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru fifo > saida_lru.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt lru fifo > saida_lru.txt
+[?2004l
+Erro: pagina vitima sem frame valido
+Erro: falha de traducao na linha 171, no endereco: 48855
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt lru fifo > saida_lru.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c '^Endereco logico:' saida_lru.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c '^Endereco logico:' saida_lru.txt
+[?2004l
+1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c 'Erro' saida_lru.txt[27mgrep -c 'Erro' saida_lru.txt
+[?2004l
+0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mtail -n 1 saida_lru.txt[27mtail -n 1 saida_lru.txt
+[?2004l
+Endereco logico: 12107 Endereco fisico: 17739 Valor: -46
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt fifo fifo > saida_fifo.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt fifo fifo > saida_fifo.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c '^Endereco logico:' saida_fifo.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c '^Endereco logico:' saida_fifo.txt
+[?2004l
+1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
+[?2004l
+rm -f vm vm.o
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
+[?2004l
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[01m[Kvm.c:[m[K In function ‘[01m[KtraduzEndereco[m[K’:
+[01m[Kvm.c:302:13:[m[K [01;31m[Kerror: [m[Kunused variable ‘[01m[Kframe[m[K’ [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Werror=unused-variable]8;;[m[K]
+  302 |         int [01;31m[Kframe[m[K = pagina;
+      |             [01;31m[K^~~~~[m[K
+In file included from [01m[K/usr/include/stdio.h:980[m[K,
+                 from [01m[Kvm.c:5[m[K:
+In function ‘[01m[Kprintf[m[K’,
+    inlined from ‘[01m[KexecutaSimulacao[m[K’ at [01m[Kvm.c:365:9[m[K,
+    inlined from ‘[01m[Kmain[m[K’ at [01m[Kvm.c:112:9[m[K:
+[01m[K/usr/include/x86_64-linux-gnu/bits/stdio2.h:86:10:[m[K [01;31m[Kerror: [m[K‘[01m[Kfisico[m[K’ may be used uninitialized [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Werror=maybe-uninitialized]8;;[m[K]
+   86 |   return [01;31m[K__printf_chk (__USE_FORTIFY_LEVEL - 1, __fmt, __va_arg_pack ())[m[K;
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[Kvm.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[Kvm.c:358:9:[m[K [01;36m[Knote: [m[K‘[01m[Kfisico[m[K’ was declared here
+  358 |     int [01;36m[Kfisico[m[K;
+      |         [01;36m[K^~~~~~[m[K
+In function ‘[01m[KexecutaSimulacao[m[K’,
+    inlined from ‘[01m[Kmain[m[K’ at [01m[Kvm.c:112:9[m[K:
+[01m[Kvm.c:365:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kvalor[m[K’ may be used uninitialized [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmaybe-uninitialized-Werror=maybe-uninitialized]8;;[m[K]
+  365 |         [01;31m[Kprintf("Endereco logico: %d Endereco fisico: %d Valor: %d\n", enderecos->itens[i], fisico, valor)[m[K;
+      |         [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[Kvm.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[Kvm.c:359:17:[m[K [01;36m[Knote: [m[K‘[01m[Kvalor[m[K’ was declared here
+  359 |     signed char [01;36m[Kvalor[m[K;
+      |                 [01;36m[K^~~~~[m[K
+cc1: all warnings being treated as errors
+make: *** [Makefile:14: vm.o] Error 1
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ amek[K[K[K[Kclear
+[?2004l
+[H[2J[3J[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru fifo[27m
+
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt lru fifo
+
+exit
+
+Script done on 2026-11-19 19:39:03-03:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-11-19 19:39:07-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru fifo > saida_fifo_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt lru fifo > saida_fifo_tlb.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c '^Endereco logico:' saida_fifo_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c '^Endereco logico:' saida_fifo_tlb.txt
+[?2004l1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c 'Erro' saida_fifo_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c 'Erro' saida_fifo_tlb.txt
+[?2004l0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru lru > saida_lru_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt lru lru > saida_lru_tlb.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c '^Endereco logico:' saida_lru_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c '^Endereco logico:' saida_lru_tlb.txt
+[?2004l1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mgrep -c 'Erro' saida_lru_tlb.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep -c 'Erro' saida_lru_tlb.txt
+[?2004l0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exity
+[?2004lexity: command not found
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exity[K
+[?2004lexit
+
+Script done on 2026-11-19 20:11:16-03:00 [COMMAND_EXIT_CODE="127"]
