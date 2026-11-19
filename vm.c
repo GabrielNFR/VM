@@ -10,13 +10,6 @@
 #define NUM_FRAMES 128
 #define INVALID_FRAME (-1)
 
-typedef struct {
-    unsigned char frames[NUM_FRAMES][PAGE_SIZE];
-    int tabelaPaginas[NUM_PAGES];
-    int proximoFrame;
-    FILE *backingStore;
-} Memoria;
-
 typedef enum {
     ENDERECO_OK = 0,
     ENDERECO_SEM_DIGITOS,
@@ -25,17 +18,40 @@ typedef enum {
     ENDERECO_FORA_DA_FAIXA
 } StatusEndereco;
 
+typedef enum {
+    POLITICA_FIFO,
+    POLITICA_LRU
+} PoliticaPagina;
+
+typedef struct {
+    unsigned char frames[NUM_FRAMES][PAGE_SIZE];
+    int tabelaPaginas[NUM_PAGES];
+    int proximoFrame;
+    FILE *backingStore;
+
+    int filaFifo[NUM_FRAMES];
+    int inicioFila;
+    int fimFila;
+    int tamanhoFila;
+
+    PoliticaPagina politicaPagina;
+} Memoria;
+
 typedef struct {
     int *itens;
     size_t quantidade;
     size_t capacidade;
 } AddressList;
 
+static int escolheVitimaPagina(Memoria *memoria);
+static void enfileiraFifo(Memoria *memoria, int pagina);
+static int desenfileiraFifo(Memoria *memoria);
+static int executaSimulacao(Memoria *memoria, const AddressList *enderecos);
 static StatusEndereco validaEndereco(const char *s, int *saida);
 static void liberaLista(AddressList *lista);
 static int carregaEnderecos(const char *caminho, AddressList *lista);
 static int adicionarLista(AddressList *lista, int valor);
-static int inicializaMemoria(Memoria *memoria);
+static int inicializaMemoria(Memoria *memoria, PoliticaPagina politica);
 static void liberaMemoria(Memoria *memoria);
 static int carregaPagina(Memoria *memoria, int pagina, int frame);
 static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor);
@@ -55,6 +71,14 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    PoliticaPagina politicaPagina;
+    if (strcmp(argv[2], "fifo") == 0) {
+        politicaPagina = POLITICA_FIFO;
+    }
+    else {
+        politicaPagina = POLITICA_LRU;
+    }
+
     AddressList enderecos = {0};
     if (carregaEnderecos(argv[1], &enderecos) != 0) {
         liberaLista(&enderecos);
@@ -63,36 +87,17 @@ int main(int argc, char **argv) {
     printf("Enderecos validados: %zu\nPrimeiro endereco: %d\nUltimo endereco: %d\n", enderecos.quantidade, enderecos.itens[0], enderecos.itens[enderecos.quantidade - 1]);
 
     Memoria memoria;
-    if (inicializaMemoria(&memoria) != 0) {
-        liberaLista(&enderecos);
-        return 1;
-    }
-
-    int fisico; 
-    signed char valor;
-
-    if (traduzEndereco(&memoria, enderecos.itens[0], &fisico, &valor) != 0) {
-        fprintf(stderr, "Erro: falha na tradução do primeiro endereço\n");
-        liberaMemoria(&memoria);
-        liberaLista(&enderecos);
-        return 1;
-    }
-
-    printf("Endereco logico: %d\n", enderecos.itens[0]);
-    printf("Endereco fisico: %d\n", fisico);
-    printf("Valor: %d\n", valor);
-
-    int fisico2;
-    signed char valor2;
-
-    if (traduzEndereco(&memoria, enderecos.itens[0], &fisico2, &valor2) != 0) {
-        fprintf(stderr, "Erro: falha na segunda tradução\n");
-        liberaMemoria(&memoria);
-        liberaLista(&enderecos);
-        return 1;
-    }
     
-    printf("Segunda traducao: fisico = %d, valor = %d\n", fisico2, valor2);
+    if (inicializaMemoria(&memoria, politicaPagina) != 0) {
+        liberaLista(&enderecos);
+        return 1;
+    }
+
+    if (executaSimulacao(&memoria, &enderecos) != 0) {
+        liberaMemoria(&memoria);
+        liberaLista(&enderecos);
+        return 1;
+    }
     
     liberaMemoria(&memoria);
     liberaLista(&enderecos);
@@ -216,12 +221,16 @@ static void liberaLista(AddressList *lista) {
     lista->quantidade = 0;
 }
 
-static int inicializaMemoria(Memoria *memoria) {
+static int inicializaMemoria(Memoria *memoria, PoliticaPagina politica) {
     for (int i = 0; i < NUM_PAGES; i++) {
         memoria->tabelaPaginas[i] = INVALID_FRAME;
     }
 
     memoria->proximoFrame = 0;
+    memoria->inicioFila = 0;
+    memoria->fimFila = 0;
+    memoria->tamanhoFila = 0;
+    memoria->politicaPagina = politica;
 
     memoria->backingStore = fopen("BACKING_STORE.bin", "rb");
     if (memoria->backingStore == NULL) {
@@ -266,20 +275,43 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
 
     int frame = memoria->tabelaPaginas[pagina];
 
-    if (frame == -1) {
-        if (memoria->proximoFrame >= NUM_FRAMES) {
-            return 1;
-        }
+    if (frame == INVALID_FRAME) {
+        int vitima = INVALID_FRAME;
 
-        frame = memoria->proximoFrame;
+        if (memoria->proximoFrame < NUM_FRAMES) {
+            frame = memoria->proximoFrame;
+            memoria->proximoFrame++;
+        }
+        else {
+            vitima = escolheVitimaPagina(memoria);
+            if (vitima == INVALID_FRAME) {
+                fprintf(stderr, "Erro: politica de página não implementada\n");
+                return 1;
+            }
+            frame = memoria->tabelaPaginas[vitima];
+
+            if (frame == INVALID_FRAME) {
+                fprintf(stderr, "Erro: pagina vitima sem frame valido\n");
+                return 1;
+            }
+        }
 
         if (carregaPagina(memoria, pagina, frame) != 0) {
             fprintf(stderr, "Erro: falha ao carregar do backing store\n");
             return 1;
         }
 
+        if (vitima != INVALID_FRAME) {
+            memoria->tabelaPaginas[vitima] = INVALID_FRAME;
+        }
+
         memoria->tabelaPaginas[pagina] = frame;
-        memoria->proximoFrame++;
+        
+        if (memoria->politicaPagina == POLITICA_FIFO) {
+            enfileiraFifo(memoria, pagina);
+        }
+        
+        memoria->tabelaPaginas[pagina] = frame;
     }
 
     int fisico = frame * PAGE_SIZE + offset;
@@ -289,4 +321,43 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
     *valor = (signed char)bruto;
 
     return 0;
+}
+
+static int executaSimulacao(Memoria *memoria, const AddressList *enderecos) {
+    int fisico;
+    signed char valor;
+    for (size_t i = 0; i < enderecos->quantidade; i++) {
+        if (traduzEndereco(memoria, enderecos->itens[i], &fisico, &valor) != 0) {
+            fprintf(stderr, "Erro: falha de traducao na linha %zu, no endereco: %d\n", i, enderecos->itens[i]);
+            return 1;
+        }
+        printf("Endereco logico: %d Endereco fisico: %d Valor: %d\n", enderecos->itens[i], fisico, valor);
+    }
+
+    return 0;
+}
+
+static void enfileiraFifo(Memoria *memoria, int pagina) {
+    memoria->filaFifo[memoria->fimFila] = pagina;
+    memoria->fimFila = (memoria->fimFila + 1) % NUM_FRAMES;
+    memoria->tamanhoFila++;
+}
+
+static int desenfileiraFifo(Memoria *memoria) {
+    int pagina = memoria->filaFifo[memoria->inicioFila];
+    memoria->inicioFila = (memoria->inicioFila + 1) % NUM_FRAMES;
+    memoria->tamanhoFila--;
+
+    return pagina;
+}
+
+static int escolheVitimaPagina(Memoria *memoria) {
+    switch (memoria->politicaPagina) {
+        case POLITICA_FIFO:
+            return desenfileiraFifo(memoria);
+        case POLITICA_LRU:
+            return INVALID_FRAME;
+    }
+
+    return INVALID_FRAME;
 }

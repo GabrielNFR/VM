@@ -1,140 +1,202 @@
 Script started on 2026-11-17 19:18:17-03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="125" LINES="14"]
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
-[?2004lTue Nov 17 19:18:21 -03 2026
+[?2004l
+Tue Nov 17 19:18:21 -03 2026
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
-[?2004l/home/skickle/OS/VM
+[?2004l
+/home/skickle/OS/VM
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami][K
-[?2004lskickle
+[?2004l
+skickle
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
-[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[?2004l
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ .vm [K[K[K/vm addresses.txt fifo lryu[K[Ku
-[?2004lPrimeiro endereco lido: 16916
+[?2004l
+Primeiro endereco lido: 16916
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ printf -- '-1\n1[K' > invalido.txt [K
-[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: endereço fora da faixa 0...65535
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
+[?2004l
+Erro: endereço fora da faixa 0...65535
 Erro: a primeira linha do arquivo nao contem um endereco valido
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: endereço fora da faixa 0...65535
+[?2004l
+Erro: endereço fora da faixa 0...65535
 Erro: a primeira linha do arquivo nao contem um endereco valido
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
-[?2004lmake: Nothing to be done for 'all'.
+[?2004l
+make: Nothing to be done for 'all'.
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make./vm invalido.txt fifo lru
-[?2004lErro: nenhum digito foi lido
+[?2004l
+Erro: nenhum digito foi lido
 Erro: a primeira linha do arquivo nao contem um endereco valido
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: arquivo vazio ou não foi possivel ler a primeira linha
+[?2004l
+Erro: arquivo vazio ou não foi possivel ler a primeira linha
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ clear
-[?2004l[H[2J[3J[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [K]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
-[?2004lrm -f vm vm.o
+[?2004l
+[H[2J[3J[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ 
+[K
+]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
+[?2004l
+rm -f vm vm.o
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
-[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[?2004l
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
-[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [K]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ 
+[K
+]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+
 exit
 Script started on 2026-11-17 22:04:05-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
-[?2004lTue Nov 17 22:04:12 -03 2026
+[?2004l
+Tue Nov 17 22:04:12 -03 2026
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami
-[?2004lskickle
+[?2004l
+skickle
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
-[?2004l/home/skickle/OS/VM
+[?2004l
+/home/skickle/OS/VM
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./[K[K[7m./vm addresses.txt fifo lru[27m./vm addresses.txt fifo lru
-[?2004lEndereços validados: 1000
-[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\nabc\n' > invalido.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\nabc\n' > invalido.txt
-[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
-[?2004lErro: nenhum digito foi lido
+[?2004l
+Endereços validados: 1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\nabc\n' > invalido.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\nabc\n' > invalido.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
+[?2004l
+Erro: nenhum digito foi lido
 Erro: falha ao ler a linha 2 no arquivo invalido.txt
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: nenhum digito foi lido
+[?2004l
+Erro: nenhum digito foi lido
 Erro: falha ao ler a linha 2 no arquivo invalido.txt
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: endereço fora da faixa 0...65535
+[?2004l
+Erro: endereço fora da faixa 0...65535
 Erro: falha ao ler a linha 2 no arquivo invalido.txt
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro: nenhum digito foi lido
+[?2004l
+Erro: nenhum digito foi lido
 Erro: falha ao ler a linha 1 no arquivo invalido.txt
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm invalido.txt fifo lru
-[?2004lErro ao abrir o arquivo de entrada
+[?2004l
+Erro ao abrir o arquivo de entrada
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean &&make[K[K[K[K make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm invalido.txt fifo lru[1@addresses[C[C[C[C[C[C[C[C[C[C[C[C[Cpwd[Kwhoami[2Pdatemake clean && make[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[7m./vm addresses.txt fifo lru[27m./vm addresses.txt fifo lru
-[?2004lEndereços validados: 1000
-[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mprintf '123\nabc\n' > invalido.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cprintf '123\nabc\n' > invalido.txt
-[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
-[?2004lErro: linha 2 do arquivo 'invalido.txt': nenhum número foi encontrado.
-[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\n70000\n' > invalido2.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\n70000\n' > invalido2.txt
-[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm invalido2.txt fifo lru[27m ./vm invalido2.txt fifo lru
-[?2004lErro: linha 2 do arquivo 'invalido2.txt': endereço fora da faixa 0..65535.
+[?2004l
+Endereços validados: 1000
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mprintf '123\nabc\n' > invalido.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cprintf '123\nabc\n' > invalido.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm invalido.txt fifo lru[27m./vm invalido.txt fifo lru
+[?2004l
+Erro: linha 2 do arquivo 'invalido.txt': nenhum número foi encontrado.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m printf '123\n70000\n' > invalido2.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C printf '123\n70000\n' > invalido2.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm invalido2.txt fifo lru[27m ./vm invalido2.txt fifo lru
+[?2004l
+Erro: linha 2 do arquivo 'invalido2.txt': endereço fora da faixa 0..65535.
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m : > vazio.txt[27m : > vazio.txt
-[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm vazio.txt fifo lru[27m ./vm vazio.txt fifo lru
-[?2004lErro: o arquivo 'vazio.txt' está vazio.
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm vazio.txt fifo lru[27m ./vm vazio.txt fifo lru
+[?2004l
+Erro: o arquivo 'vazio.txt' está vazio.
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm nao_existe.txt fifo lru[27m./vm nao_existe.txt fifo lru
-[?2004lErro: não foi possível abrir 'nao_existe.txt': No such file or directory
-[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+[?2004l
+Erro: não foi possível abrir 'nao_existe.txt': No such file or directory
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [?2004l
+
 exit
 Script started on 2026-11-18 14:58:56-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
-[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[?2004l
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lryu[K[Ku
-[?2004lErro: o arquivo 'addresses.txt' está vazio.
+[?2004l
+Erro: o arquivo 'addresses.txt' está vazio.
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt fifo lru
-[?2004lErro: o arquivo 'addresses.txt' está vazio.
+[?2004l
+Erro: o arquivo 'addresses.txt' está vazio.
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lru[9Pmake clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm make clean && make./vm addresses.txt fifo lru
-[?2004lSegmentation fault (core dumped)
+[?2004l
+Segmentation fault (core dumped)
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lru[9Pmake clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt fifo lru
-[?2004lSegmentation fault (core dumped)
+[?2004l
+Segmentation fault (core dumped)
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make cçea[K[K[Klean 
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make
-[?2004lgcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[?2004l
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean ./vm addresses.txt fifo lru
-[?2004lEnderecos validados: 1000
+[?2004l
+Enderecos validados: 1000
 Primeiro endereco: 16916
 Ultimo endereco:12107
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make[K[K[K[Kdate
-[?2004lWed Nov 18 20:18:22 -03 2026
+[?2004l
+Wed Nov 18 20:18:22 -03 2026
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
-[?2004lrm -f vm vm.o
+[?2004l
+rm -f vm vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
 gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit
-[?2004lexit
+[?2004l
+exit
 
 Script done on 2026-11-18 20:18:32-03:00 [COMMAND_EXIT_CODE="0"]
 Script started on 2026-11-18 20:18:35-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
-[?2004lWed Nov 18 20:18:36 -03 2026
+[?2004l
+Wed Nov 18 20:18:36 -03 2026
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ dateexitmake clean && makedate[K./vm addresses.txt fifo lru
-[?2004lEnderecos validados: 1000
+[?2004l
+Enderecos validados: 1000
 Primeiro endereco: 16916
 Ultimo endereco: 12107
 Endereco logico: 16916
@@ -142,4 +204,161 @@ Endereco fisico: 20
 Valor: 0
 Segunda traducao: fisico = 20, valor = 0
 [?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ git add .
-[?2004l
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ git commit -m ""[7mImplementa carga de endereços e tradução inicial[27m
+
+[7mArmazena os endereços em vetor dinâmico, adiciona a struct Memoria[27m
+
+[7mcom frames e tabela de páginas e traduz o primeiro endereço com[27m
+
+[7mpage fault. Corrige a alocação inicial do vetor e atualiza o[27m
+
+[7mrelatório com as evidências do log.[27m"[A[A[A[A[C[C[C[C[C[C[CImplementa carga de endereços e tradução inicial
+
+Armazena os endereços em vetor dinâmico, adiciona a struct Memoria
+
+com frames e tabela de páginas e traduz o primeiro endereço com
+
+page fault. Corrige a alocação inicial do vetor e atualiza o
+
+relatório com as evidências do log."
+[?2004l
+[main 176384d] Implementa carga de endereços e tradução inicial Armazena os endereços em vetor dinâmico, adiciona a struct Memoria com frames e tabela de páginas e traduz o primeiro endereço com page fault. Corrige a alocação inicial do vetor e atualiza o relatório com as evidências do log.
+ 3 files changed, 247 insertions(+), 32 deletions(-)
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ git push pori[K[K[K[Korigin mainm[K
+[?2004l
+Enumerating objects: 9, done.
+Counting objects:  11% (1/9)
+Counting objects:  22% (2/9)
+Counting objects:  33% (3/9)
+Counting objects:  44% (4/9)
+Counting objects:  55% (5/9)
+Counting objects:  66% (6/9)
+Counting objects:  77% (7/9)
+Counting objects:  88% (8/9)
+Counting objects: 100% (9/9)
+Counting objects: 100% (9/9), done.
+Delta compression using up to 2 threads
+Compressing objects:  20% (1/5)
+Compressing objects:  40% (2/5)
+Compressing objects:  60% (3/5)
+Compressing objects:  80% (4/5)
+Compressing objects: 100% (5/5)
+Compressing objects: 100% (5/5), done.
+Writing objects:  20% (1/5)
+Writing objects:  40% (2/5)
+Writing objects:  60% (3/5)
+Writing objects:  80% (4/5)
+Writing objects: 100% (5/5)
+Writing objects: 100% (5/5), 4.07 KiB | 4.07 MiB/s, done.
+Total 5 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/3)[K
+remote: Resolving deltas:  33% (1/3)[K
+remote: Resolving deltas:  66% (2/3)[K
+remote: Resolving deltas: 100% (3/3)[K
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.[K
+To github.com:GabrielNFR/VM.git
+   01cfc14..176384d  main -> main
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m  head -n 100 addresses.txt > enderecos_100.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C  head -n 100 addresses.txt > enderecos_100.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[01m[Kvm.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[Kvm.c:73:17:[m[K [01;31m[Kerror: [m[Kunused variable ‘[01m[Kvalor[m[K’ [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Werror=unused-variable]8;;[m[K]
+   73 |     signed char [01;31m[Kvalor[m[K;
+      |                 [01;31m[K^~~~~[m[K
+[01m[Kvm.c:72:9:[m[K [01;31m[Kerror: [m[Kunused variable ‘[01m[Kfisico[m[K’ [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Werror=unused-variable]8;;[m[K]
+   72 |     int [01;31m[Kfisico[m[K;
+      |         [01;31m[K^~~~~~[m[K
+[01m[Kvm.c:[m[K In function ‘[01m[KexecutaSimulacao[m[K’:
+[01m[Kvm.c:281:23:[m[K [01;31m[Kerror: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Ksize_t[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wsign-compare-Werror=sign-compare]8;;[m[K]
+  281 |     for (int i = 0; i [01;31m[K<[m[K enderecos->quantidade; i++) {
+      |                       [01;31m[K^[m[K
+cc1: all warnings being treated as errors
+make: *** [Makefile:14: vm.o] Error 1
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+[01m[Kvm.c:[m[K In function ‘[01m[KexecutaSimulacao[m[K’:
+[01m[Kvm.c:280:64:[m[K [01;31m[Kerror: [m[Kformat ‘[01m[K%d[m[K’ expects argument of type ‘[01m[Kint[m[K’, but argument 3 has type ‘[01m[Ksize_t[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;31m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wformat=-Werror=format=]8;;[m[K]
+  280 |             fprintf(stderr, "Erro: falha de traducao na linha [01;31m[K%d[m[K, no endereco: %d\n", [32m[Ki[m[K, enderecos->itens[i]);
+      |                                                               [01;31m[K~^[m[K                      [32m[K~[m[K
+      |                                                                [01;31m[K|[m[K                      [32m[K|[m[K
+      |                                                                [01;31m[Kint[m[K                    [32m[Ksize_t {aka long unsigned int}[m[K
+      |                                                               [32m[K%ld[m[K
+cc1: all warnings being treated as errors
+make: *** [Makefile:14: vm.o] Error 1
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004l
+rm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make [K[K[K[K[Kclear
+[?2004l
+[H[2J[3J[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm enderecos_100.txt fifo fifo[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm enderecos_100.txt fifo fifo
+[?2004l
+Enderecos validados: 100
+Primeiro endereco: 16916
+Ultimo endereco: 22501
+Endereco logico: 16916 Endereco fisico: 20 Valor: 0
+Endereco logico: 62493 Endereco fisico: 285 Valor: 0
+Endereco logico: 30198 Endereco fisico: 758 Valor: 29
+
+[96 traducoes omitidas]
+Endereco logico: 22501 Endereco fisico: 11493 Valor: 0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m ./vm addresses.txt fifo fifo > saida_fifo.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ./vm addresses.txt fifo fifo > saida_fifo.txt
+[?2004l
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m   grep -c 'memória cheia' saida_fifo.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C   grep -c 'memória cheia' saida_fifo.txt
+[?2004l
+0
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt fifo fifo > saida_fifo.txt[27m
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt fifo fifo > saida_fifo.txt
+[?2004l
+Erro: politica de página não implementada
+Erro: falha de traducao na linha 0, no endereco: 16916
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt fifo fifo > saida_fifo.txt[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K fifo
+[?2004l
+Enderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+Endereco logico: 16916 Endereco fisico: 20 Valor: 0
+Endereco logico: 62493 Endereco fisico: 285 Valor: 0
+Endereco logico: 30198 Endereco fisico: 758 Valor: 29
+
+[174 traducoes omitidas]
+Erro: pagina vitima sem frame valido
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo lru[9Pmake clean && make./vm addresses.txt fifo lrufifo
+[?2004l
+Enderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+Endereco logico: 16916 Endereco fisico: 20 Valor: 0
+Endereco logico: 62493 Endereco fisico: 285 Valor: 0
+Endereco logico: 30198 Endereco fisico: 758 Valor: 29
+
+[bloco de traducoes repetitivas omitido]
+Endereco logico: 12107 Endereco fisico: 6475 Valor: -46
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt fifo fifo[K[K[K[K[K[K[K[K[K[K lru fifo
+[?2004l
+Enderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+Endereco logico: 16916 Endereco fisico: 20 Valor: 0
+Endereco logico: 62493 Endereco fisico: 285 Valor: 0
+Endereco logico: 30198 Endereco fisico: 758 Valor: 29
+
+[168 traducoes omitidas]
+Erro: politica de página não implementada
+Erro: falha de traducao na linha 171, no endereco: 48855
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit
+[?2004l
+exit
+
+Script done on 2026-11-18 22:44:07-03:00 [COMMAND_EXIT_CODE="1"]
