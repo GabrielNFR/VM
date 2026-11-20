@@ -474,3 +474,78 @@ gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm
 [?2004lexit
 
 Script done on 2026-11-19 20:11:16-03:00 [COMMAND_EXIT_CODE="127"]
+Script started on 2026-11-20 19:47:03-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="14"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ date
+[?2004lFri Nov 20 19:47:04 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ pwd
+[?2004l/home/skickle/OS/VM
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ whoami
+[?2004lskickle
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [K]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ mn[Kake clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru fifo > saida_lru_fifo.txt[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm addresses.txt lru fifo > saida_lru_fifo.txt
+[A
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt lru fifo > saida_lru_fifo.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[30Pmake clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make./vm addresses.txt lru fifo > saida_lru_fifo.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ~cp cor[K[K[K[K[K[K[Kc´p [K[K[Kp correct.txt c[Kcorrect_esperado.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clçea[K[K[Kean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && makecp correct.txt correct_esperado.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[17Pmake clean && make[K./vma d[K[K[K addresses.txt lru fifo
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt fifo fifo[27m./vm addresses.txt fifo fifo
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru lru[27m./vm addresses.txt lru lru
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ ./vm addresses.txt lru lru
+[?2004lEnderecos validados: 1000
+Primeiro endereco: 16916
+Ultimo endereco: 12107
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ make clean && make
+[?2004lrm -f vm vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -c vm.c -o vm.o
+gcc -std=gnu11 -Wall -Wextra -Werror -Wno-unused-parameter -O2 -g -pthread -o vm vm.o 
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm addresses.txt lru fifo[27m./vm addresses.txt lru fifo
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mdiff -u correct_esperado.txt correct.txt[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdiff -u correct_esperado.txt correct.txt
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ 
+[?2004l[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7mcmp -s correct_esperado.txt correct.txt && echo identicos[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccmp -s correct_esperado.txt correct.txt && echo identicos
+[A
+[?2004lidenticos
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit
+[?2004lexit
+
+Script done on 2026-11-20 20:04:58-03:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-11-20 20:06:33-03:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="114" LINES="15"]
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ [7m./vm[27m
+[7m./vm addresses.txt[27m
+[7m./vm addresses.txt xyz fifo[27m
+[7m./vm addresses.txt fifo xyz[27m
+[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./vm
+./vm addresses.txt
+./vm addresses.txt xyz fifo
+./vm addresses.txt fifo xyz
+[A
+[?2004lErro: uso: ./vm <arquivo> <fifo|lru> <fifo|lru>
+Erro: uso: ./vm <arquivo> <fifo|lru> <fifo|lru>
+Erro: política de página inválida: 'xyz'. Use fifo ou lru.
+Erro: política de TLB inválida: 'xyz'. Use fifo ou lru.
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit[K[K[K[Kdate
+[?2004lFri Nov 20 20:06:50 -03 2026
+[?2004h]0;skickle@ROADLESS1: ~/OS/VM[01;32mskickle@ROADLESS1[00m:[01;34m~/OS/VM[00m$ exit
+[?2004lexit
+
+Script done on 2026-11-20 20:06:51-03:00 [COMMAND_EXIT_CODE="0"]

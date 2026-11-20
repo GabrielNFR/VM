@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pthread.h>
+#include <time.h>
 
 #define PAGE_SIZE 256
 #define NUM_PAGES 256
@@ -57,6 +59,7 @@ typedef struct {
     int tlbHits;
     int proximaEntradaTlb;
     unsigned long relogioTlb;
+    int pageFaults;
 } Memoria;
 
 typedef struct {
@@ -65,6 +68,14 @@ typedef struct {
     size_t capacidade;
 } AddressList;
 
+typedef struct {
+    Memoria *memoria;
+    int pagina;
+    int indice;
+    int encontrou;
+} ThreadTlb;
+
+static void *procuraNaTlb(void *arg);
 static int escolheEntradaTlbLru(Memoria *memoria);
 static int insereTlb(Memoria *memoria, int pagina, int frame);
 static int buscaTlb(Memoria *memoria, int pagina);
@@ -73,7 +84,7 @@ static void registraUso(Memoria *memoria, int pagina);
 static int escolheVitimaPagina(Memoria *memoria);
 static void enfileiraFifo(Memoria *memoria, int pagina);
 static int desenfileiraFifo(Memoria *memoria);
-static int executaSimulacao(Memoria *memoria, const AddressList *enderecos);
+static int executaSimulacao(Memoria *memoria, const AddressList *enderecos, FILE *saida);
 static StatusEndereco validaEndereco(const char *s, int *saida);
 static void liberaLista(AddressList *lista);
 static int carregaEnderecos(const char *caminho, AddressList *lista);
@@ -81,7 +92,7 @@ static int adicionarLista(AddressList *lista, int valor);
 static int inicializaMemoria(Memoria *memoria, PoliticaPagina politicaPagina, PoliticaTlb politicaTlb);
 static void liberaMemoria(Memoria *memoria);
 static int carregaPagina(Memoria *memoria, int pagina, int frame);
-static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor);
+static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor, int *indiceTlb);
 
 int main(int argc, char **argv) {
     if (argc != 4) {
@@ -119,7 +130,6 @@ int main(int argc, char **argv) {
         liberaLista(&enderecos);
         return 1;
     }
-    printf("Enderecos validados: %zu\nPrimeiro endereco: %d\nUltimo endereco: %d\n", enderecos.quantidade, enderecos.itens[0], enderecos.itens[enderecos.quantidade - 1]);
 
     Memoria memoria;
     
@@ -128,12 +138,22 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (executaSimulacao(&memoria, &enderecos) != 0) {
+    FILE *saida = fopen("correct.txt", "w");
+    if (saida == NULL) {
+        fprintf(stderr, "Falha ao abrir arquivo\n");
         liberaMemoria(&memoria);
         liberaLista(&enderecos);
         return 1;
     }
     
+    if (executaSimulacao(&memoria, &enderecos, saida) != 0) {
+        fclose(saida);
+        liberaMemoria(&memoria);
+        liberaLista(&enderecos);
+        return 1;
+    }
+
+    fclose(saida);
     liberaMemoria(&memoria);
     liberaLista(&enderecos);
     
@@ -279,6 +299,7 @@ static int inicializaMemoria(Memoria *memoria, PoliticaPagina politicaPagina, Po
     memoria->politicaTlb = politicaTlb;
     memoria->tlbHits = 0;
     memoria->proximaEntradaTlb = 0;
+    memoria->pageFaults = 0;
 
     memoria->backingStore = fopen("BACKING_STORE.bin", "rb");
     if (memoria->backingStore == NULL) {
@@ -313,7 +334,7 @@ static int carregaPagina(Memoria *memoria, int pagina, int frame) {
     return 0;
 }
 
-static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor) {
+static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFisico, signed char *valor, int *indiceTlb) {
     int pagina = enderecoVirtual / PAGE_SIZE;
     int offset = enderecoVirtual % PAGE_SIZE;
 
@@ -337,6 +358,7 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
 
         *enderecoFisico = fisico;
         *valor = (signed char)bruto;
+        *indiceTlb = slot;
 
         return 0;
     }
@@ -345,6 +367,7 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
 
     if (frame == INVALID_FRAME) {
         int vitima = INVALID_FRAME;
+        memoria->pageFaults++;
 
         if (memoria->proximoFrame < NUM_FRAMES) {
             frame = memoria->proximoFrame;
@@ -376,11 +399,11 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
         if (memoria->politicaPagina == POLITICA_FIFO) {
             enfileiraFifo(memoria, pagina);
         }
-        
+
         memoria->tabelaPaginas[pagina] = frame;
     }
 
-    insereTlb(memoria, pagina, frame);
+    *indiceTlb = insereTlb(memoria, pagina, frame);
     registraUso(memoria, pagina);
     
     int fisico = frame * PAGE_SIZE + offset;
@@ -392,17 +415,24 @@ static int traduzEndereco(Memoria *memoria, int enderecoVirtual, int *enderecoFi
     return 0;
 }
 
-static int executaSimulacao(Memoria *memoria, const AddressList *enderecos) {
+static int executaSimulacao(Memoria *memoria, const AddressList *enderecos, FILE *saida) {
     int fisico;
+    int indiceTlb;
     signed char valor;
     for (size_t i = 0; i < enderecos->quantidade; i++) {
-        if (traduzEndereco(memoria, enderecos->itens[i], &fisico, &valor) != 0) {
+        if (traduzEndereco(memoria, enderecos->itens[i], &fisico, &valor, &indiceTlb) != 0) {
             fprintf(stderr, "Erro: falha de traducao na linha %zu, no endereco: %d\n", i, enderecos->itens[i]);
             return 1;
         }
-        printf("Endereco logico: %d Endereco fisico: %d Valor: %d\n", enderecos->itens[i], fisico, valor);
+        fprintf(saida, "Virtual address: %d TLB: %d Physical address: %d Value: %d\n", enderecos->itens[i], indiceTlb, fisico, valor);
     }
-
+    
+    fprintf(saida, "Number of Translated Addresses = %zu\n", enderecos->quantidade);
+    fprintf(saida, "Page Faults = %d\n", memoria->pageFaults);
+    fprintf(saida, "Page Fault Rate = %.3f\n", (double)memoria->pageFaults / enderecos->quantidade);
+    fprintf(saida, "TLB Hits = %d\n", memoria->tlbHits);
+    fprintf(saida, "TLB Hit Rate = %.3f\n", (double)memoria->tlbHits / enderecos->quantidade);
+    
     return 0;
 }
 
@@ -454,12 +484,30 @@ static int escolheVitimaLru(Memoria *memoria) {
 }
 
 static int buscaTlb(Memoria *memoria, int pagina) {
+    pthread_t threads[TLB_SIZE];
+    ThreadTlb buscas[TLB_SIZE];
+
     for (int i = 0; i < TLB_SIZE; i++) {
-        if (memoria->tlb[i].valido && memoria->tlb[i].pagina == pagina) {
+        buscas[i].memoria = memoria;
+        buscas[i].indice = i;
+        buscas[i].pagina = pagina;
+        buscas[i].encontrou = 0;
+    }
+
+    for (int i = 0; i < TLB_SIZE; i++) {
+        pthread_create(&threads[i], NULL, procuraNaTlb, &buscas[i]);
+    }
+
+    for (int i = 0; i < TLB_SIZE; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    for (int i = 0; i < TLB_SIZE; i++) {
+        if (buscas[i].encontrou) {
             return i;
         }
     }
-
+    
     return -1;
 }
 
@@ -497,4 +545,15 @@ static int escolheEntradaTlbLru(Memoria *memoria) {
     }
 
     return idx;
+}
+
+static void *procuraNaTlb(void *arg) {
+    ThreadTlb *thread = arg;
+    EntradaTlb *entrada = &thread->memoria->tlb[thread->indice];
+
+    if (entrada->valido && entrada->pagina == thread->pagina) {
+        thread->encontrou = 1;
+    }
+
+    return NULL;
 }

@@ -1,4 +1,3 @@
-*.txt
-*.bin
+correct.txt
 *.o
 vm
