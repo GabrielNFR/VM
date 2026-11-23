@@ -117,7 +117,7 @@ Execuções com `addresses.txt`, 1000 traduções em todas as combinações:
 | lru | fifo | 539 | 0.539 | 54 | 0.054 |
 | lru | lru | 539 | 0.539 | 55 | 0.055 |
 
-A combinação `lru fifo` reproduz exatamente a saída de referência do enunciado. A combinação `lru lru` produz os mesmos endereços físicos e os mesmos valores, mudando apenas o índice da entrada de TLB e a contagem de hits. Isso é esperado, porque a referência do enunciado usa FIFO de TLB.
+A combinação `lru fifo` é a que corresponde à saída de referência do enunciado. A combinação `lru lru` produz os mesmos endereços físicos e os mesmos valores, mudando apenas o índice da entrada de TLB e a contagem de hits. Isso é esperado, porque a referência do enunciado usa FIFO de TLB.
 
 Grupos de funções:
 
@@ -252,10 +252,8 @@ Exemplos de uso inválido:
 | `addresses.txt` | 1000 endereços lógicos de entrada |
 | `BACKING_STORE.bin` | 65536 bytes de memória secundária, lidos nos page faults |
 | `correct.txt` | saída gerada pela última execução |
-| `gnfr.md` | relatório do projeto |
+| `gnfr.pdf` | relatório do projeto, entregue em PDF |
 | `evidencias.log` | log das sessões de compilação e teste |
-
-Os arquivos `saida_*.txt` são saídas de depuração de versões anteriores e não são usados pelo programa.
 
 ## Testes manuais
 
@@ -272,18 +270,29 @@ Execução completa:
 ./vm addresses.txt lru fifo
 ```
 
-Conferência do resumo:
+Conferência do resumo esperado para `lru fifo`:
 
 ```bash
 tail -5 correct.txt
 ```
 
-Comparação com a saída de referência do enunciado, guardada à parte:
+Valores esperados:
+
+```
+Number of Translated Addresses = 1000
+Page Faults = 539
+Page Fault Rate = 0.539
+TLB Hits = 54
+TLB Hit Rate = 0.054
+```
+
+Conferência da quantidade de linhas, uma por endereço mais as cinco do resumo:
 
 ```bash
-diff -u correct_esperado.txt correct.txt
-cmp -s correct_esperado.txt correct.txt && echo identicos
+wc -l correct.txt
 ```
+
+O resultado é `1006 correct.txt`. A saída de referência do enunciado não acompanha o pacote de entrega, então a conferência acima é feita pelos valores do resumo.
 
 Teste de argumentos inválidos, esperando código de saída diferente de zero:
 
@@ -302,7 +311,7 @@ echo "codigo: $?"
 
 ## Limitações conhecidas
 
-- A TLB não é invalidada quando uma página é substituída. Uma entrada antiga continua apontando para o frame que agora pertence a outra página. O resultado do exemplo continua igual à referência porque a referência tem o mesmo comportamento, mas a implementação não é segura para sequências de acesso arbitrárias.
+- A TLB não é invalidada quando uma página é substituída. Uma entrada antiga continua apontando para o frame que agora pertence a outra página. A implementação de referência do enunciado tem o mesmo comportamento, mas a solução não é segura para sequências de acesso arbitrárias.
 - A busca na TLB cria e destrói 16 threads por tradução, o que é correto do ponto de vista do enunciado e caro do ponto de vista de desempenho.
 - A saída é sempre `correct.txt` no diretório atual, sem opção de caminho alternativo.
 - A execução exige `BACKING_STORE.bin` no diretório atual.
